@@ -1,0 +1,15 @@
+// create a launch.json file to run `npm run test:e2e in debug mode
+
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch e2e Tests",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run-script", "test:e2e"]
+    }
+  ]
+}

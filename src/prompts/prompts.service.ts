@@ -18,7 +18,7 @@ export class PromptsService {
     return this.prisma.prompt.findMany({ where: { status: 'FAILURE' } });
   }
 
-  async findOne(id: number) {
+  findOne(id: number) {
     return this.prisma.prompt.findUnique({ where: { id } });
   }
 

@@ -18,8 +18,8 @@ enum Status {
 }
 
 model Prompt {
-  id        Int  @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   content   String
-  status    Status @default(PENDING)
+  status    Status   @default(PENDING)
 }

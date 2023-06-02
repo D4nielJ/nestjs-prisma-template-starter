@@ -7,14 +7,17 @@ import {
   Delete,
   NotFoundException,
   ParseIntPipe,
+  UseFilters,
 } from '@nestjs/common';
 import { PromptsService } from './prompts.service';
 import { CreatePromptDto } from './dto/create-prompt.dto';
 import { ApiTags, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import { PromptEntity } from './entities/prompt.entity';
+import PrismaClientExceptionFilter from 'src/prisma-client-exception/prisma-client-exception.filter';
 
 @ApiTags('prompts')
 @Controller('prompts')
+@UseFilters(PrismaClientExceptionFilter)
 export class PromptsController {
   constructor(private readonly promptsService: PromptsService) {}
 
@@ -44,24 +47,16 @@ export class PromptsController {
   @ApiOkResponse({ type: PromptEntity })
   async findOne(@Param('id', ParseIntPipe) id: number) {
     const prompt = await this.promptsService.findOne(id);
-
     if (!prompt) {
       throw new NotFoundException(`Prompt #${id} not found`);
     }
-
     return prompt;
   }
 
   // Delete
   @Delete(':id')
   @ApiOkResponse({ type: PromptEntity })
-  async remove(@Param('id', ParseIntPipe) id: number) {
-    const prompt = await this.promptsService.findOne(id);
-
-    if (!prompt) {
-      throw new NotFoundException(`Prompt #${id} not found`);
-    }
-
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.promptsService.remove(id);
   }
 }
