@@ -24,17 +24,19 @@ export class PromptsController {
   }
 
   @Get()
-  @ApiCreatedResponse({ type: [PromptEntity] })
+  @ApiOkResponse({ type: [PromptEntity] })
   findAll() {
     return this.promptsService.findAll();
   }
 
   @Get('failures')
+  @ApiOkResponse({ type: [PromptEntity] })
   findAllFailures() {
     return this.promptsService.findAllFailures();
   }
 
   @Get(':id')
+  @ApiOkResponse({ type: PromptEntity })
   async findOne(@Param('id') id: string) {
     const prompt = await this.promptsService.findOne(+id);
 
@@ -46,6 +48,7 @@ export class PromptsController {
   }
 
   @Delete(':id')
+  @ApiOkResponse({ type: PromptEntity })
   async remove(@Param('id') id: string) {
     const prompt = await this.promptsService.findOne(+id);
 
