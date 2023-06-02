@@ -175,7 +175,7 @@ describe('AppController (e2e)', () => {
     });
 
     it('DELETE /prompts/:id with 404 errors', async () => {
-      const { status, body } = await request(app.getHttpServer()).delete(
+      const { status } = await request(app.getHttpServer()).delete(
         '/prompts/999',
       );
 
